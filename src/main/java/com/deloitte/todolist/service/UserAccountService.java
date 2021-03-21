@@ -21,6 +21,7 @@ public class UserAccountService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        //filters the username to ensure that it does not contain anything malicious
         if (!username.matches(usernameRegex)) {
             throw new UsernameNotFoundException(username);
         }
@@ -36,5 +37,4 @@ public class UserAccountService implements UserDetailsService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication.getName();
     }
-
 }

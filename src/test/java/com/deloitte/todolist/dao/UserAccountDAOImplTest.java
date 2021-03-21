@@ -103,7 +103,6 @@ public class UserAccountDAOImplTest {
         int updateId = (int) taskList.get(0).getId();
         task.setId(updateId);
 
-
         userAccountDAO.saveTask(task);
 
         taskList = userAccountDAO.findAllTasksByAssignedUser("test");

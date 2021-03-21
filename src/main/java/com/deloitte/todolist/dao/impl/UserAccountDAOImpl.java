@@ -18,7 +18,6 @@ public class UserAccountDAOImpl implements UserAccountDAO {
     @Autowired
     private TaskRepository taskRepository;
 
-
     public List<Task> findAllTasksByAssignedUser(String username) {
         return this.taskRepository.findAllByAssignedUser(username);
     }
