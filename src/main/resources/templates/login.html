@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>To Do List - Login</title>
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+
+</head>
+<body>
+<div align="center">
+    <h1>Login</h1>
+
+    <div th:if="${param.error}" class="alert alert-danger">
+        Invalid Username/Password.
+    </div>
+
+    <form action="#" th:action="@{/login}" method="post" th:object="${userAccount}">
+        <table>
+            <tr>
+                <p>Username:
+                    <input type="text" th:field="*{username}" maxlength="20" size="20"/></p>
+            </tr>
+            <tr>
+                <p>Password:
+                    <input type="password" th:field="*{password}" maxlength="20" size="20"/></p><br/>
+            </tr>
+            <button type="submit">Login</button>
+        </table>
+    </form>
+</div>
+</body>
+</html>

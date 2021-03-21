@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<style>
+table, th, td {
+  border: 1px solid black;
+  padding: 5px;
+}
+table {
+  border-spacing: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>To Do List - Tasks</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<div align="center">
+    <h1>Task Management Page</h1>
+    <body>
+    <p th:text="'Welcome ' + ${username} + '!'"></p>
+
+    <h2>Task List</h2>
+    <table>
+        <tbody>
+        <tr>
+            <td align="center"><b>Task Name</b></td>
+            <td align="center"><b>Description</b></td>
+            <td align="center"><b>Last Updated</b></td>
+            <td align="center"><b>Completed</b></td>
+            <td align="center"><b>Update Task</b></td>
+            <td align="center"><b>Delete Task</b></td>
+
+        </tr>
+        </tbody>
+
+        <tbody>
+        <tr th:each="task: ${taskList}">
+            <td th:text="${{task.taskName}}"/>
+            <td th:text="${{task.description}}"/>
+            <td th:text="${{task.lastUpdated}}" align="center"/>
+            <td align="center">
+                <form data-th-action="@{/todo_list/updateTask}" action="updateTask" method="post"
+                      th:object="${updateTask}">
+                    <input type="hidden" th:value="${{task.id}}" id="id" name="id"/>
+                    <input type="hidden" th:value="${{task.taskName}}" id="taskName" name="taskName"/>
+                    <input type="hidden" th:value="${{task.description}}" id="description" name="description"/>
+                    <input type="hidden" th:value="${{task.lastUpdated}}" id="lastUpdated" name="lastUpdated"/>
+                    <input type="hidden" th:value="${{task.assignedUser}}" id="assignedUser" name="assignedUser"/>
+                    <input type="checkbox" name="isChecked" id="isChecked"
+                           th:checked="${{task.isChecked}}"
+                           th:value="${{task.isChecked}}"
+                           onclick="this.value = this.checked"/>
+            </td>
+            <td align="center">
+                <button type="submit" name="action" value="updateTask">Update</button>
+                </form>
+            </td>
+            <td align="center">
+                <form data-th-action="@{'/todo_list/{id}'(id=${task.id})}" action="delete" method="post">
+                    <button type="submit" name="action" value="delete">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    </br>
+    </br>
+    <h2>Add a Task</h2>
+    <form action="newTask" th:action="@{/todo_list/addTask}" method="post" th:object="${task}">
+        <p><b><u>Task Name</u>:</b><input type="text" th:field="*{taskName}"/></p>
+        <p><b><u>Description</u>:</b><input type="text" th:field="*{description}"/></p>
+        <button type="submit" name="action" value="newTask">Add Task</button>
+    </form>
+    </body>
+    </br></br>
+    <a href="/">Return Home</a>
+</div>
+</html>
